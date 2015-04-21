@@ -51,16 +51,21 @@
                             </form>
                         </span>
                     </td>
-                    <td>{{item.teacher}}</td>
+                    <td>
+                        {{item.teacher}}
+                        <button class="btn btn-warning btn-sm" ng-click="teacheredit = true" ng-hide="teacheredit">Edit</button>
+                        <form class="form-inline" role="form" ng-show="teacheredit" ng-submit="teacheredit = false">
+                            <div class="form-group">
+                                <select ng-model="item.teacher" required>
+                                    <option value="Mr. Green">Mr. Green</option>
+                                    <option value="Mrs. Blue">Mrs. Blue</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-default btn-sm" type="submit">Save</button>
+                        </form>
+                    </td>
                     <td><span ng-show="item.permissionSlip"><span class="glyphicon glyphicon-ok"></span></span></td>
                     <td><a ng-click="deleteStudent(item)">Delete</a></td>
-
-                  <!-- <span class="form-group" ng-show="editing" ng-submit="editing = false">
-                    <form class="form-inline" role="form">
-                      <input type="text" class="form-control input-sm" ng-model="item.name" placeholder="Name" required/>
-                      <button class="btn btn-default btn-sm" type="submit">Save</button>
-                    </form>
-                  </span> -->
               </tr>
             </table>
             </div>
