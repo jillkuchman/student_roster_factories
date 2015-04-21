@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <script src="lib/angular.js"></script>
         <script src="app.js"></script>
+        <script src="services/StudentsFactory.js"></script>
         <script src="controllers/FieldTripsController.js"></script>
         <script src="controllers/StudentsController.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -11,7 +12,7 @@
     </head>
     <body>
       <div class="container">
-        <div  ng-controller="StudentsCtrl">
+        <div ng-controller="StudentsCtrl">
           <div class="row" ng-show="students.length">
             <div class="col-md-12">
               <h4>Search Students</h4>
@@ -52,13 +53,21 @@
           </div>
         </div>
        <div class="row permission" ng-controller="FieldTripsCtrl">
-          <div class="col-md-6">
-            <h2>Permission Slips</h2>
+          <div class="col-md-6" ng-show="studentsWithoutPermission.length">
+            <h4>Without Permission Slips</h4>
             <ul>
-              <li ng-repeat="item in studentsWithPermission">
-                {{item.name}}
+              <li ng-repeat="item in studentsWithoutPermission = (students | filter:{permissionSlip: false})">
+                {{item.name}} <a ng-click="addStudentWithPermissionSlip(item)"> -received permission slip-</a>
               </li>
             </ul>
+          </div>
+          <div class="col-md-6" ng-show="studentsWithPermission.length">
+              <h4>With Permission Slips</h4>
+              <ul>
+                  <li ng-repeat="item in studentsWithPermission = (students | filter:{permissionSlip: true})">
+                      {{item.name}}
+                  </li>
+              </ul>
           </div>
         </div>
       </div>
