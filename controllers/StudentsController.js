@@ -2,11 +2,14 @@ studentRoster.controller('StudentsCtrl', function StudentsCtrl($scope, StudentsF
     $scope.students = StudentsFactory.students;
     $scope.addStudent = function(){
         var name = $scope.studentName;
-        StudentsFactory.addStudent(name);
+        var teacher = $scope.studentTeacher;
+        StudentsFactory.addStudent(name, teacher);
         $scope.studentName = null;
+        $scope.studentTeacher = null;
     };
 
     $scope.deleteStudent = function(student) {
         StudentsFactory.deleteStudent(student);
     };
+
 });

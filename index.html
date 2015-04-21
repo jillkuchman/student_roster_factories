@@ -18,7 +18,15 @@
               <h4>Search Students</h4>
               <form class="form-inline" role="form">
                 <div class="form-group">
-                  <input ng-model="query" type="text" class="form-control" id="student-name" placeholder="Search">
+                  <input ng-model="query.name" type="text" class="form-control" id="student-name" placeholder="Search">
+                </div>
+                <div class="form-group">
+                    <h4>Search By Teacher:</h4>
+                    <select ng-model="query.teacher">
+                        <option value="">--</option>
+                        <option value="Mr. Green">Mr. Green</option>
+                        <option value="Mrs. Blue">Mrs. Blue</option>
+                    </select>
                 </div>
               </form>
             </div>
@@ -30,7 +38,8 @@
               <ul>
                 <li ng-repeat="item in filtered = (students | filter:query)">
                   <span ng-click="editing = true" ng-hide="editing">
-                    {{item.name}} <a ng-click="deleteStudent(item)">Delete</a>
+                    {{item.name}} {{item.teacher}} <a ng-click="deleteStudent(item)">Delete</a>
+                    <span ng-show="item.permissionSlip"><span class="glyphicon glyphicon-ok"></span></span>
                   </span>
                   <span class="form-group" ng-show="editing" ng-submit="editing = false">
                     <form class="form-inline" role="form">
@@ -47,6 +56,12 @@
                 <div class="form-group">
                   <input type="text" ng-model="studentName" class="form-control" id="student-name" placeholder="Enter name">
                 </div>
+                <div class="form-group">
+                    <select ng-model="studentTeacher">
+                        <option value="Mr. Green">Mr. Green</option>
+                        <option value="Mrs. Blue">Mrs. Blue</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
             </div>
@@ -57,7 +72,7 @@
             <h4>Without Permission Slips</h4>
             <ul>
               <li ng-repeat="item in studentsWithoutPermission = (students | filter:{permissionSlip: false})">
-                {{item.name}} <a ng-click="addStudentWithPermissionSlip(item)"> -received permission slip-</a>
+                {{item.name}} <a ng-click="addStudentWithPermissionSlip(item)">--received permission slip--</a>
               </li>
             </ul>
           </div>
