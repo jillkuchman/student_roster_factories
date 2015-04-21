@@ -35,29 +35,43 @@
             <div class="col-md-6">
               <h2 ng-show="students.length && filtered.length">Student List</h2>
               <h2 ng-show="students.length && !filtered.length">No Matches</h2>
-              <ul>
-                <li ng-repeat="item in filtered = (students | filter:query)">
-                  <span ng-click="editing = true" ng-hide="editing">
-                    {{item.name}} {{item.teacher}} <a ng-click="deleteStudent(item)">Delete</a>
-                    <span ng-show="item.permissionSlip"><span class="glyphicon glyphicon-ok"></span></span>
-                  </span>
-                  <span class="form-group" ng-show="editing" ng-submit="editing = false">
+              <table class="table table-bordered" ng-show="students.length">
+                      <td>Student Name</td>
+                      <td>Teacher</td>
+                      <td>Permission Slip Received</td>
+                      <td>Delete Student?</td>
+                <tr ng-repeat="item in filtered = (students | filter:query)">
+
+                    <td><span ng-click="editing = true" ng-hide="editing">
+                        {{item.name}}</span>
+                        <span class="form-group" ng-show="editing" ng-submit="editing = false">
+                            <form class="form-inline" role="form">
+                                <input type="text" class="form-control input-sm" ng-model="item.name" placeholder="Name" required/>
+                                <button class="btn btn-default btn-sm" type="submit">Save</button>
+                            </form>
+                        </span>
+                    </td>
+                    <td>{{item.teacher}}</td>
+                    <td><span ng-show="item.permissionSlip"><span class="glyphicon glyphicon-ok"></span></span></td>
+                    <td><a ng-click="deleteStudent(item)">Delete</a></td>
+
+                  <!-- <span class="form-group" ng-show="editing" ng-submit="editing = false">
                     <form class="form-inline" role="form">
                       <input type="text" class="form-control input-sm" ng-model="item.name" placeholder="Name" required/>
                       <button class="btn btn-default btn-sm" type="submit">Save</button>
                     </form>
-                  </span>
-                </li>
-              </ul>
+                  </span> -->
+              </tr>
+            </table>
             </div>
             <div class="col-md-6">
               <h2>New Student</h2>
               <form ng-submit="addStudent()" class="form-inline" role="form">
                 <div class="form-group">
-                  <input type="text" ng-model="studentName" class="form-control" id="student-name" placeholder="Enter name">
+                  <input type="text" ng-model="studentName" class="form-control" id="student-name" placeholder="Enter name" autofocus required>
                 </div>
                 <div class="form-group">
-                    <select ng-model="studentTeacher">
+                    <select ng-model="studentTeacher" required>
                         <option value="Mr. Green">Mr. Green</option>
                         <option value="Mrs. Blue">Mrs. Blue</option>
                     </select>
